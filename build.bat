@@ -1,5 +1,5 @@
 @echo off
-SET SOLUTIONPATH=%~dp0\src\Utilities.sln
+SET SOLUTIONPATH=%~dp0\src\Utilities.Squirrel.sln
 SET LOGDIRPATH=%~dp0\Build
 SET LOGFILEPATH=%LOGDIRPATH%\build.log
 SET COMMONPARAMETERS=/p:Configuration=Release /M /fl /flp:verbosity=normal;Append;LogFile=%LOGFILEPATH%
