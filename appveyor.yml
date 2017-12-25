@@ -1,0 +1,27 @@
+version: 1.0.{build}
+build_script:
+- cmd: .\build.bat
+test_script:
+- cmd: .\test.bat
+image: Visual Studio 2017
+
+environment:
+  access_token:
+    secure: nvGAbT8b4ETfPLfbgZcVI6KO2T5iBS3pRTRAfQZyXitK9AvJWgf9FQ5L4JmrGgdU
+
+skip_tags: true
+
+artifacts:
+  - path: .\Build\Release\*\*.nupkg  
+
+deploy:
+  provider: NuGet
+  api_key:
+    secure: 4aapXyciUmby3klv5YF3Qy7mXyClKYW+wXOkaFXxfvFlqNQxg4f29EhnSaNqh1HC
+  skip_symbols : true  
+  artifact: /.*\.nupkg/
+  on:
+    branch: master
+
+on_success:
+  - ps: ./appveyor.onsuccess.ps1

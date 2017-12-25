@@ -1,0 +1,32 @@
+<Project>
+	
+  <!-- 
+  	For non-test projects, automatically generate a assembly info file that makes the internal members visible 
+	to the corresponding test and test helpers project.
+	Also make internals visible to DynamicProxyGenAssembly2 to enable mocking of internal interfaces using Moq
+  -->
+  <Target Name="CreateInternalsVisibleToAssemblyInfo" AfterTargets="PrepareForBuild">			
+		<PropertyGroup>
+			<GeneratedFilePath>$(BaseIntermediateOutputPath)$(Configuration)/$(TargetFramework)/$(AssemblyName).InternalsVisibleTo.g.cs</GeneratedFilePath>
+		</PropertyGroup>
+		
+		<ItemGroup>
+			<InternalsVisibleToAssemblyInfoLine Include="using System.Runtime.CompilerServices%3B" />
+			<InternalsVisibleToAssemblyInfoLine Include=" " />
+			<InternalsVisibleToAssemblyInfoLine Include="[assembly:InternalsVisibleTo(&quot;$(AssemblyName).Test&quot;)]" />
+			<InternalsVisibleToAssemblyInfoLine Include="[assembly:InternalsVisibleTo(&quot;$(AssemblyName).TestHelpers&quot;)]" />
+			<InternalsVisibleToAssemblyInfoLine Include="[assembly:InternalsVisibleTo(&quot;DynamicProxyGenAssembly2&quot;)]" />
+		</ItemGroup>
+
+		<WriteLinesToFile File="$(GeneratedFilePath)"  
+						  Lines="@(InternalsVisibleToAssemblyInfoLine)" 
+						  Overwrite="true"  
+						  Encoding="Unicode" 
+						  Condition="!Exists('$(GeneratedFilePath)')"/>  
+			
+		<CreateItem Include="$(GeneratedFilePath)">
+			<Output TaskParameter="Include" ItemName="Compile" /> 
+		</CreateItem>		
+  </Target>
+  
+</Project>

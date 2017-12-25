@@ -1,0 +1,13 @@
+<Project>
+
+	<PropertyGroup>
+		<SrcRootDirectory>$(MSBuildThisFileDirectory)</SrcRootDirectory>
+		<BuildToolsDirectory>$(SrcRootDirectory)buildtools\</BuildToolsDirectory>
+		<LangVersion>7.1</LangVersion>
+	</PropertyGroup>
+
+	<Import Project="$(BuildToolsDirectory)ProjectTypeInference.props" />
+	<Import Project="$(BuildToolsDirectory)OutputSettings.props" />
+	
+
+</Project>

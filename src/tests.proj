@@ -1,0 +1,15 @@
+<Project DefaultTargets="Test">
+	<PropertyGroup>
+		<Configuration Condition="'$(Configuration)' == '' ">Debug</Configuration>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<TestProject Include="$(MSBuildThisFileDirectory)*/test/*.csproj" />
+	</ItemGroup>
+
+	<Target Name="Test">
+		<MSBuild Projects="@(TestProject)" Targets="Test" BuildInParallel="false" Properties="Configuration=$(Configuration)" />
+		<Message Text="Test run completed" Importance="High" />
+	</Target>
+
+</Project>
