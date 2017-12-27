@@ -8,8 +8,15 @@ installation process. Squirrel Utilities also provides some helpers useful for
 console applications.
 
 
-Installer
----------
+Download
+--------
+The Squirrel Utiltiies package is available on [NuGet.org](https://www.nuget.org/packages/Grynwald.Utilities.Squirrel/)
+
+
+Usage
+------
+
+### Installer
 *Note: In order to user the Installer class, your application has to be 
  "Squirrel Aware", see [Squirrel Documentation](https://github.com/Squirrel/Squirrel.Windows/blob/master/docs/using/custom-squirrel-events.md) for details*
 
@@ -64,8 +71,7 @@ useful for console applications. By default, the installer will
   application was installed successfully 
 
 
-Updater 
--------
+### Updater 
 The updater class updates the application in the background and was written
 primarily for console applications. It can be configured by passing in a
 instance of `UpdateSettings` and will call the appropriate Squirrel methods
@@ -76,8 +82,7 @@ either by explicitly calling ``WaitForCompletion()`` or by disposing the
 updater object.
 
 
-Example
--------
+### Example
 A console application using both the ``Installer`` and ``Updater`` could look
 like this
 
