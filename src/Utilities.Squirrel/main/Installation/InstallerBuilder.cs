@@ -178,7 +178,7 @@ namespace Grynwald.Utilities.Squirrel.Installation
         }
 
         /// <summary>
-        /// Sets the action to be executed when an execption occurrs during installation
+        /// Sets the action to be executed when an exception occurs during installation
         /// </summary>
         public InstallerBuilder OnException(Action<Exception> onException)
         {
@@ -207,9 +207,9 @@ namespace Grynwald.Utilities.Squirrel.Installation
         /// Creates a new <see cref="InstallerBuilder"/> with preconfigured default steps for installation of console applications.
         /// 
         /// By default, the installer will 
-        ///     - create a batch file in the application root directory (see <see cref="SpecialDirectory.ApplicationRootDirectory"/>)
-        ///       that launches the applications
-        ///     - add the application root directory to the user's PATH environment variable
+        ///     - Create a batch file in the application root directory (see <see cref="SpecialDirectory.ApplicationRootDirectory"/>)
+        ///       that launches the application
+        ///     - Add the application root directory to the user's PATH environment variable
         ///     - On first run, display a console window with a message indicating that the application was installed successfully
         /// </summary>
         /// <returns></returns>
