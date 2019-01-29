@@ -1,13 +1,28 @@
 <Project>
 
 	<PropertyGroup>
-		<SrcRootDirectory>$(MSBuildThisFileDirectory)</SrcRootDirectory>
-		<BuildToolsDirectory>$(SrcRootDirectory)buildtools\</BuildToolsDirectory>
 		<LangVersion>7.1</LangVersion>
 	</PropertyGroup>
 
-	<Import Project="$(BuildToolsDirectory)ProjectTypeInference.props" />
-	<Import Project="$(BuildToolsDirectory)OutputSettings.props" />
+	<!-- Output paths -->
+	<PropertyGroup>
+		<BaseOutputPath Condition="'$(BUILD_BINARIESDIRECTORY)' != '' ">$(BUILD_BINARIESDIRECTORY)</BaseOutputPath>
+		<BaseOutputPath Condition="'$(BaseOutputPath)' == '' ">$(MSBuildThisFileDirectory)..\Build\</BaseOutputPath>
+		<BaseOutputPath Condition="!HasTrailingSlash('BaseOutputPath')">$(BaseOutputPath)\</BaseOutputPath>
+		<BaseIntermediateOutputPath>$(BaseOutputPath)intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+		<OutputPath>$(BaseOutputPath)$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+	</PropertyGroup>
 	
+	<ItemGroup>
+		<PackageReference Include="Nerdbank.GitVersioning" Version="2.3.38" PrivateAssets="all" />
+	</ItemGroup>
+
+	<!--NuGet package properties -->
+	<PropertyGroup>
+		<Authors>Andreas Gruenwald</Authors>
+		<PackageProjectUrl>https://github.com/ap0llo/utilities-squirrel</PackageProjectUrl>
+		<PackageLicenseUrl>https://github.com/ap0llo/utilities-squirrel/blob/master/LICENSE</PackageLicenseUrl>
+		<Description>A collection of helpers for application distributed and updated using Squirrel.Windows</Description>
+	</PropertyGroup>
 
 </Project>
