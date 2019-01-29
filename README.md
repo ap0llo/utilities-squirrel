@@ -3,7 +3,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Grynwald.Utilities.Squirrel.svg)](https://www.nuget.org/packages/Grynwald.Utilities.Squirrel)
 [![Build Status](https://dev.azure.com/ap0llo/OSS/_apis/build/status/utilities-squirrel?branchName=master)](https://dev.azure.com/ap0llo/OSS/_build/latest?definitionId=9?branchName=master)
 
-*Grynwald.Utilities.Squirrel* aid the use of [Squirrel](https://github.com/Squirrel/Squirrel.Windows)
+*Grynwald.Utilities.Squirrel* aids the use of [Squirrel](https://github.com/Squirrel/Squirrel.Windows)
 in applications that want to perform additional actions as part of the
 installation process. Squirrel Utilities also provides some helpers useful for
 console applications.
@@ -16,7 +16,7 @@ The Squirrel Utiltiies package is available on [NuGet.org](https://www.nuget.org
 
 MarkdownGenerator targets .NET Framewoek 4.6.1 and can be built using the .NET SDK (tested with Visual Studio 2017 15.9)
 
-```bat
+```ps1
   dotnet restore .\src\Utilities.Squirrel.sln
 
   dotnet build .\src\Utilities.Squirrel.sln
@@ -41,17 +41,16 @@ Installer instances are instantiated using the `InstallerBuilder`.
 The installer is executed by calling its `HandleInstallationEvents()` methods:
 
 ```csharp
+using Grynwald.Utilities.Squirrel.Installation;
 
-    using Grynwald.Utilities.Squirrel.Installation;
+static void Main()
+{
+    var installer = InstallerBuilder.CreateBuilder()
+        //TODO: Add installer steps here
+        .Build();
 
-    static void Main()
-    {
-        var installer = InstallerBuilder.CreateBuilder()
-            //TODO: Add installer steps here
-            .Build();
-
-        installer.HandleInstallationEvents();
-    }
+    installer.HandleInstallationEvents();
+}
 ```
 
 The `InstallerBuilder` class offers methods to configure built-in steps or
@@ -98,28 +97,27 @@ A console application using both the ``Installer`` and ``Updater`` could look
 like this
 
 ```csharp
+using Grynwald.Utilities.Squirrel.Installation;
 
-    using Grynwald.Utilities.Squirrel.Installation;
+static void Main()
+{
+    InstallerBuilder.CreateBuilder()
+        //TODO: Add installer steps here
+        .Build()
+        .HandleInstallationEvents();
 
-    static void Main()
+    //TODO: configure updater (e.g. load from app settings)
+    UpdateOptions updateOption = ...
+
+    using (var updater = new Updater(new UpdateOptions()))
     {
-        InstallerBuilder.CreateBuilder()
-            //TODO: Add installer steps here
-            .Build()
-            .HandleInstallationEvents();
+        updater.Start();
 
-        //TODO: configure updater (e.g. load from app settings)
-        UpdateOptions updateOption = ...
+        //
+        // you application logic goes here
+        //
 
-        using (var updater = new Updater(new UpdateOptions()))
-        {
-            updater.Start();
-
-            //
-            // you application logic goes here
-            //
-
-            updater.WaitForCompletion();
-        }
+        updater.WaitForCompletion();
     }
+}
 ```
